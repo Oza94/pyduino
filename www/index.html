@@ -1,0 +1,71 @@
+<html lang="en" >
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Angular Material style sheet -->
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="/index.css">
+</head>
+<body ng-app="PyduinoApp" ng-cloak>
+  <!--
+    Your HTML content here
+  -->  
+  <div ng-controller="AppCtrl as app" layout-fill layout="column" layout-align="center center">
+    <md-card style="width: 500px">
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">Sensors</span>
+          <span class="md-subhead" ng-if="app.connected">Connected</span>
+          <span class="md-subhead" ng-if="!app.connected">No connection to Arduino!</span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-content layout="row" layout-align="center">
+        <div layout="column" layout-align="small-center">
+          <md-icon md-font-icon="icon-star"></md-icon>
+          <div class="md-subhead">
+            0°
+          </div>
+        </div>
+      </md-content>
+    </md-card>
+    <md-card style="width: 500px">
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">Slaaaaap machine</span>
+          <span class="md-subhead">Slap it !</span>
+        </md-card-title-text>
+      </md-card-title>
+      <md-content layout="column" layout-align="center" class="md-padding" style="min-height:100px;">
+        <md-slider 
+          flex 
+          md-discrete 
+          ng-model="app.slapSpeed" 
+          ng-change="app.setSlapSpeed()"
+          step="1" 
+          min="1" 
+          max="100" 
+          aria-label="slapSpeed">
+        </md-slider>
+      </md-content>
+    </md-card>
+  </div>
+  
+  <!-- Angular Material requires Angular.js Libraries -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js"></script>
+
+  <!-- Angular Material Library -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
+  
+  <!-- Your application bootstrap  -->
+  <script type="text/javascript" src="/index.js"></script>
+  
+</body>
+</html>
+
+<!--
+Copyright 2016 Google Inc. All Rights Reserved. 
+Use of this source code is governed by an MIT-style license that can be in foundin the LICENSE file at http://material.angularjs.org/license.
+-->

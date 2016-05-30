@@ -1,0 +1,31 @@
+
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-size: 24px;
+  position: relative;
+  top: -8px;
+  /** associate font-family with font icons names */
+  font-family:"Material Icons";
+  display:inline-block;
+  vertical-align:middle;
+  line-height:1;
+  font-weight:normal;
+  font-style:normal;
+  speak:none;
+  text-decoration:inherit;
+  text-transform:none;
+  text-rendering:optimizeLegibility;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+[class^="icon-"].small:before,
+[class*=" icon-"].small:before {
+    font-size: 20px;
+    width: 20px;
+}
+
+
+.icon-star:before {
+    content: "\e8cf";
+}
