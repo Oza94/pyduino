@@ -3,7 +3,7 @@
 [class*=" icon-"]:before {
   font-size: 24px;
   position: relative;
-  top: -8px;
+  /*top: -8px;*/
   /** associate font-family with font icons names */
   font-family:"Material Icons";
   display:inline-block;
@@ -25,7 +25,74 @@
     width: 20px;
 }
 
+md-card-avatar {
+  margin-right: 12px;
+}
+
+md-content.sensor-data {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+md-content.sensor-data .md-subhead {
+  font-size: 18px;
+}
+
+.sensor-data md-icon {
+  height: 48px;
+  color: inherit;
+}
+
+.sensor-data md-icon:before {
+  font-size: 48px;
+  line-height: 48px;
+  height: 48px;
+}
 
 .icon-star:before {
-    content: "\e8cf";
+    content: "\e838";
+}
+
+.icon-sunny:before {
+    content: "\e430";
+}
+
+.icon-volume:before {
+    content: "\e050";
+}
+
+.icon-pan-tool:before {
+  content: "\e925";
+}
+
+.icon-pan-tool:before {
+  content: "\e925";
+}
+
+.icon-brightness:before {
+  content: "\e1ae";
+}
+
+.icon-ac-unit:before {
+  content: "\eb3b";
+}
+
+.bunny {
+    width: 1000px;
+    position: fixed;
+    bottom: -530px;
+}
+
+.brand-logo {
+  position: fixed;
+  top: 16;
+  right: 16;
+  max-height: 80px;
+}
+
+.brand-headline {
+  position: fixed;
+  top: 16;
+  left: 16;
+  font-weight: 100;
+  color: grey;
 }

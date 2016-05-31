@@ -7,38 +7,59 @@
   <link rel="stylesheet" href="/index.css">
 </head>
 <body ng-app="PyduinoApp" ng-cloak>
-  <!--
-    Your HTML content here
-  -->  
+  <img src="/digitalstudio.png" class="brand-logo"/>
+  <div class="brand-headline">Initiation <b>Arduino/Raspberry PI</b> by Xavier et Pierre</div>
   <div ng-controller="AppCtrl as app" layout-fill layout="column" layout-align="center center">
-    <md-card style="width: 500px">
-      <md-card-title>
-        <md-card-title-text>
-          <span class="md-headline">Sensors</span>
-          <span class="md-subhead" ng-if="app.connected">Connected</span>
-          <span class="md-subhead" ng-if="!app.connected">No connection to Arduino!</span>
-        </md-card-title-text>
-      </md-card-title>
-      <md-content layout="row" layout-align="center">
+    <md-card style="width: 500px" md-theme-watch md-theme="default">
+      <md-progress-linear md-mode="indeterminate" ng-show="!app.sensors.connected"></md-progress-linear>
+      <md-card-header>
+        <md-card-avatar>
+          <md-icon md-font-icon="icon-ac-unit"></md-icon>
+        </md-card-avatar>
+        <md-card-header-text>
+          <span class="md-title">Sensors</span>
+          <span class="md-subhead" ng-if="!app.sensors.connected">Waiting USB connection...</span>
+          <span class="md-subhead" ng-if="app.sensors.connected">Wouhou weather forecast !</span>
+        </md-card-header-text>
+      </md-card-header>
+      <md-content layout="row" layout-align="space-around" layout-padding class="sensor-data">
         <div layout="column" layout-align="small-center">
-          <md-icon md-font-icon="icon-star"></md-icon>
+          <md-icon md-font-icon="icon-sunny"></md-icon>
           <div class="md-subhead">
             0°
+          </div>
+        </div>
+        <div layout="column" layout-align="small-center">
+          <md-icon md-font-icon="icon-volume"></md-icon>
+          <div class="md-subhead">
+            0db
+          </div>
+        </div>
+        <div layout="column" layout-align="small-center">
+          <md-icon md-font-icon="icon-brightness"></md-icon>
+          <div class="md-subhead">
+            0 lumen
           </div>
         </div>
       </md-content>
     </md-card>
     <md-card style="width: 500px">
-      <md-card-title>
-        <md-card-title-text>
-          <span class="md-headline">Slaaaaap machine</span>
-          <span class="md-subhead">Slap it !</span>
-        </md-card-title-text>
-      </md-card-title>
-      <md-content layout="column" layout-align="center" class="md-padding" style="min-height:100px;">
+      <md-progress-linear md-mode="indeterminate" ng-show="!app.slap.connected"></md-progress-linear>
+      <md-card-header>
+        <md-card-avatar>
+          <md-icon md-font-icon="icon-pan-tool"></md-icon>
+        </md-card-avatar>
+        <md-card-header-text>
+          <span class="md-title">Slaaaaap machine</span>
+          <span class="md-subhead" ng-if="!app.slap.connected">Waiting USB connection...</span>
+          <span class="md-subhead" ng-if="app.slap.connected">Slap it !</span>
+        </md-card-header-text>
+      </md-card-header>
+      <md-content layout="column" layout-align="center" layout-padding style="min-height:100px;">
         <md-slider 
           flex 
           md-discrete 
+          ng-disabled="!app.slap.connected"
           ng-model="app.slapSpeed" 
           ng-change="app.setSlapSpeed()"
           step="1" 
@@ -48,6 +69,7 @@
         </md-slider>
       </md-content>
     </md-card>
+    <!--<img src="/bunny.png" class="bunny" style="bottom: {{(app.slapSpeed * 5.3)}}px;"/>-->
   </div>
   
   <!-- Angular Material requires Angular.js Libraries -->

@@ -19,10 +19,12 @@ module.controller('AppCtrl', function ($interval, $http) {
   };
 
   vm.tick = function () {
-    $http.get('/sensors').then(function (res) {
-      Object.keys(res.data).map(function (key) {
-        vm[key] = res.data[key];
-      });
+    $http.get('/sensors-data').then(function (res) {
+      vm.sensors = res.data;
+    });
+
+    $http.get('/slap-data').then(function (res) {
+      vm.slap = res.data;
     });
   };
 
