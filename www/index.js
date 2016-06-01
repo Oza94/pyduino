@@ -12,7 +12,7 @@ module.controller('AppCtrl', function ($interval, $http) {
 
   vm.setSlapSpeed = function () {
     $http.post('/set-slap-speed', {
-
+      speed: vm.slapSpeed
     }).then(function (res) {
 
     });

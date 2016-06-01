@@ -8,7 +8,11 @@
 </head>
 <body ng-app="PyduinoApp" ng-cloak>
   <img src="/digitalstudio.png" class="brand-logo"/>
-  <div class="brand-headline">Initiation <b>Arduino/Raspberry PI</b> by Xavier et Pierre</div>
+  <div class="brand-headline">
+    Initiation <b>Arduino/Raspberry PI</b> by Xavier et Pierre
+    <br/>
+    <a href="https://github.com/Oza94/pyduino">https://github.com/Oza94/pyduino</a>
+  </div>
   <div ng-controller="AppCtrl as app" layout-fill layout="column" layout-align="center center">
     <md-card style="width: 500px" md-theme-watch md-theme="default">
       <md-progress-linear md-mode="indeterminate" ng-show="!app.sensors.connected"></md-progress-linear>
@@ -26,19 +30,19 @@
         <div layout="column" layout-align="small-center">
           <md-icon md-font-icon="icon-sunny"></md-icon>
           <div class="md-subhead">
-            0°
+            {{ app.sensors.temperature || 0}}°
           </div>
         </div>
         <div layout="column" layout-align="small-center">
           <md-icon md-font-icon="icon-volume"></md-icon>
           <div class="md-subhead">
-            0db
+            {{ app.sensors.decibel }}baud
           </div>
         </div>
         <div layout="column" layout-align="small-center">
           <md-icon md-font-icon="icon-brightness"></md-icon>
           <div class="md-subhead">
-            0 lumen
+            {{ app.sensors.luminosity }} lumen
           </div>
         </div>
       </md-content>
@@ -63,8 +67,8 @@
           ng-model="app.slapSpeed" 
           ng-change="app.setSlapSpeed()"
           step="1" 
-          min="1" 
-          max="100" 
+          min="20" 
+          max="250" 
           aria-label="slapSpeed">
         </md-slider>
       </md-content>
