@@ -60,6 +60,10 @@ md-content.sensor-data .md-subhead {
     content: "\e050";
 }
 
+.icon-volume-mute:before {
+    content: "\e04e";
+}
+
 .icon-pan-tool:before {
   content: "\e925";
 }
@@ -77,9 +81,10 @@ md-content.sensor-data .md-subhead {
 }
 
 .bunny {
-    width: 1000px;
+    height: 530px;
     position: fixed;
     bottom: -530px;
+    transition: bottom 0.1s ease;
 }
 
 .brand-logo {
@@ -95,4 +100,8 @@ md-content.sensor-data .md-subhead {
   left: 16;
   font-weight: 100;
   color: grey;
+}
+
+.content {
+  transition: background 0.1s ease;
 }

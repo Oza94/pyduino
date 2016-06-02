@@ -9,11 +9,11 @@
 <body ng-app="PyduinoApp" ng-cloak>
   <img src="/digitalstudio.png" class="brand-logo"/>
   <div class="brand-headline">
-    Initiation <b>Arduino/Raspberry PI</b> by Xavier et Pierre
+    Atelier <b>Arduino/RaspberryPI</b> by Xavier et Pierre
     <br/>
     <a href="https://github.com/Oza94/pyduino">https://github.com/Oza94/pyduino</a>
   </div>
-  <div ng-controller="AppCtrl as app" layout-fill layout="column" layout-align="center center">
+  <div ng-controller="AppCtrl as app" layout-fill layout="column" layout-align="center center" ng-style="app.bgStyle" class="content">
     <md-card style="width: 500px" md-theme-watch md-theme="default">
       <md-progress-linear md-mode="indeterminate" ng-show="!app.sensors.connected"></md-progress-linear>
       <md-card-header>
@@ -34,15 +34,16 @@
           </div>
         </div>
         <div layout="column" layout-align="small-center">
-          <md-icon md-font-icon="icon-volume"></md-icon>
+          <md-icon md-font-icon="icon-volume" ng-if="app.sensors.decibel"></md-icon>
+          <md-icon md-font-icon="icon-volume-mute" ng-if="!app.sensors.decibel"></md-icon>
           <div class="md-subhead">
-            {{ app.sensors.decibel }}baud
+            {{ app.sensors.decibel || 0 }}
           </div>
         </div>
         <div layout="column" layout-align="small-center">
           <md-icon md-font-icon="icon-brightness"></md-icon>
           <div class="md-subhead">
-            {{ app.sensors.luminosity }} lumen
+            {{ app.sensors.luminosity || 0 }}
           </div>
         </div>
       </md-content>
@@ -73,7 +74,7 @@
         </md-slider>
       </md-content>
     </md-card>
-    <!--<img src="/bunny.png" class="bunny" style="bottom: {{(app.slapSpeed * 5.3)}}px;"/>-->
+    <img src="/bunny.png" class="bunny" ng-style="app.bunnyStyle"/>
   </div>
   
   <!-- Angular Material requires Angular.js Libraries -->
@@ -85,13 +86,8 @@
   <!-- Angular Material Library -->
   <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
   
-  <!-- Your application bootstrap  -->
+  <!-- application bootstrap  -->
   <script type="text/javascript" src="/index.js"></script>
   
 </body>
 </html>
-
-<!--
-Copyright 2016 Google Inc. All Rights Reserved. 
-Use of this source code is governed by an MIT-style license that can be in foundin the LICENSE file at http://material.angularjs.org/license.
--->

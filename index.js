@@ -5,7 +5,7 @@ var serialport = require('serialport');
 var SERIAL_PORT_SENSOR = 'ACM1';
 var SERIAL_PORT_SLAP_MACHINE = 'ACM0';
 
-// serial port handler for WEATHER / SENSORS
+// serial port handler for SENSORS
 var sensorData = {
   connected: false,
   temperature: 0,
@@ -13,40 +13,40 @@ var sensorData = {
   luminosity: 0
 };
 var sensorBuffer = '';
+var sensorsSerialPort = null;
 
-var weatherSerialPort = null;
-var slapSpeed = 0;
+// handle connection, disconnect, messages for SENSORS arduino
+function connectSenorsSerial() {
+  sensorsSerialPort = new serialport.SerialPort('/dev/tty' + SERIAL_PORT_SENSOR);
 
-function connectWeatherSerial() {
-  weatherSerialPort = new serialport.SerialPort('/dev/tty' + SERIAL_PORT_SENSOR);
-
-  weatherSerialPort.on('error', function () {
+  sensorsSerialPort.on('error', function () {
     console.error('sensors port: connecting failed ', SERIAL_PORT_SENSOR);
     sensorData.connected = false;
+    sensorsSerialPort = null;
 
-    setTimeout(connectWeatherSerial, 2000);
+    setTimeout(connectSenorsSerial, 2000);
   });
 
-  weatherSerialPort.on('open', function () {
+  sensorsSerialPort.on('open', function () {
     sensorData.connected = true;
-    weatherSerialPort = null;
     console.info('sensors port: connected', SERIAL_PORT_SENSOR);
   });
 
-  weatherSerialPort.on('data', function (rawData) {
-    //console.info('sensors port: received data "', rawData.toString(), '"');
+  sensorsSerialPort.on('data', function (rawData) {
+    // each time we receive data we add it to our string buffer
     sensorBuffer += rawData.toString();
 
+    // then the code below will test if we have a complete data chunk and
+    // parse it
     if (sensorBuffer.indexOf('#') !== -1) {
       var sensorBufferArray = sensorBuffer.split('#');
       var lastStr = sensorBufferArray[sensorBufferArray.length - 2];      
-      //console.log(sensorBufferArray, lastStr);
+
       if (lastStr.split('-').length === 3) {
         var split = lastStr.split('-');
         sensorData.decibel = parseInt(split[0], 10);
         sensorData.luminosity = parseFloat(split[1], 10);
         sensorData.temperature = parseFloat(split[2], 10);  
-        //console.log('process string', lastStr);
       }
 
       sensorBuffer = '';      
@@ -54,21 +54,22 @@ function connectWeatherSerial() {
   });
 }
 
-connectWeatherSerial();
+connectSenorsSerial();
 
 // serial port handler for SLAP MACHINE
 var slapMachineData = {
   connected: false
 };
+var slapSpeed = 0;
 
 var slapSerialPort = null;
 
+// handle connection and disconnect for SLAP MACHINE serial
 function connectSlapSerial() {
   
   slapSerialPort = new serialport.SerialPort('/dev/tty' + SERIAL_PORT_SLAP_MACHINE);
 
   slapSerialPort.on('error', function (err) {
-    throw err;
     console.error('slap port: connecting failed ', SERIAL_PORT_SLAP_MACHINE);
     slapMachineData.connected = false;
     slapSerialPort = null;
@@ -84,13 +85,18 @@ function connectSlapSerial() {
 
 connectSlapSerial();
 
+// will send the current speed to arduino each 100ms
 setInterval(function () {
   if (slapSerialPort) {
-    try { slapSerialPort.write(slapSpeed + '\0'); } catch(e) { console.log('WRITE FAIL');}
+    try { 
+      slapSerialPort.write(slapSpeed + '\0'); 
+    } catch(e) { 
+      console.log('failed to write on slap serial port', e.message);
+    }
   }
 }, 100);
 
-// web application
+// web application routes and API
 var app = express();
 
 app.use(bodyParser.json());
@@ -104,11 +110,6 @@ app.get('/slap-data', function (req, res) {
 });
 
 app.post('/set-slap-speed', function (req, res) {
-  //console.log('set slap speed', req.body, req.params);
-  //if (slapSerialPort) {
-  //  console.log('set slap speed', req.params.speed);
-  //  slapSerialPort.write(req.params.speed + '');
-  //}
   slapSpeed = req.body.speed;
   res.status(204).send('');
 });
