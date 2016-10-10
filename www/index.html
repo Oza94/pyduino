@@ -5,6 +5,11 @@
   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="/index.css">
+  <style>
+    [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+      display: none !important;
+    }
+  </style>
 </head>
 <body ng-app="PyduinoApp" ng-cloak>
   <img src="/digitalstudio.png" class="brand-logo"/>
@@ -14,7 +19,7 @@
     <a href="https://github.com/Oza94/pyduino">https://github.com/Oza94/pyduino</a>
   </div>
   <div ng-controller="AppCtrl as app" layout-fill layout="column" layout-align="center center" ng-style="app.bgStyle" class="content">
-    <md-card style="width: 500px" md-theme-watch md-theme="default">
+    <md-card style="max-width: 500px" md-theme-watch md-theme="default">
       <md-progress-linear md-mode="indeterminate" ng-show="!app.sensors.connected"></md-progress-linear>
       <md-card-header>
         <md-card-avatar>
@@ -48,16 +53,16 @@
         </div>
       </md-content>
     </md-card>
-    <md-card style="width: 500px">
+    <md-card style="max-width: 500px">
       <md-progress-linear md-mode="indeterminate" ng-show="!app.slap.connected"></md-progress-linear>
       <md-card-header>
         <md-card-avatar>
           <md-icon md-font-icon="icon-pan-tool"></md-icon>
         </md-card-avatar>
         <md-card-header-text>
-          <span class="md-title">Slaaaaap machine</span>
+          <span class="md-title">Zootrope</span>
           <span class="md-subhead" ng-if="!app.slap.connected">Waiting USB connection...</span>
-          <span class="md-subhead" ng-if="app.slap.connected">Slap it !</span>
+          <span class="md-subhead" ng-if="app.slap.connected">TurnS it !</span>
         </md-card-header-text>
       </md-card-header>
       <md-content layout="column" layout-align="center" layout-padding style="min-height:100px;">

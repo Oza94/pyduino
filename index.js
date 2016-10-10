@@ -115,5 +115,5 @@ app.post('/set-slap-speed', function (req, res) {
 });
 
 app.use(express.static('www'));
-app.listen(8080);
-console.log('listening http://localhost:8080');
+app.listen(80, '0.0.0.0');
+console.log('listening http://localhost:80');
